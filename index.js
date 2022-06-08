@@ -3,18 +3,22 @@ import './style.css';
 
 let time = document.getElementById('time');
 const multiplierButtons = document.querySelectorAll('[data-action');
+const stopBtn = document.querySelector('[data-play="stop"]');
+const startBtn = document.querySelector('[data-play="start"]');
 
-function setTime() {
-  let spentSec = parseInt(time.value) + 1;
-  time.value = spentSec;
-}
+let isRunning = true;
+let speed = 1000;
 
-function setTimer() {
-  let speed = 1000;
-  speed = multiplier(speed);
-  console.log(speed);
-  return setInterval(setTime, speed);
-}
+stopBtn.addEventListener('click', () => (isRunning = false));
+startBtn.addEventListener('click', () => (isRunning = true));
+speed = multiplier(speed);
+
+setInterval(() => {
+  if (isRunning) {
+    let spentSec = parseInt(time.value) + 1;
+    time.value = spentSec;
+  }
+}, speed);
 
 function multiplier(speed) {
   const multiField = document.querySelector('#multi');
@@ -28,8 +32,6 @@ function multiplier(speed) {
     });
   });
 
-  speed = 2000;
+  speed = 1000;
   return speed;
 }
-
-setTimer();
